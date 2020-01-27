@@ -4,7 +4,7 @@
 #
 Name     : php-hprose
 Version  : 1.6.8
-Release  : 2
+Release  : 3
 URL      : https://pecl.php.net//get/hprose-1.6.8.tgz
 Source0  : https://pecl.php.net//get/hprose-1.6.8.tgz
 Summary  : No detailed summary available
@@ -31,6 +31,7 @@ lib components for the php-hprose package.
 
 %prep
 %setup -q -n hprose-1.6.8
+cd %{_builddir}/hprose-1.6.8
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -49,4 +50,4 @@ make  %{?_smp_mflags}
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/extensions/no-debug-non-zts-20180731/hprose.so
+/usr/lib64/extensions/no-debug-non-zts-20190902/hprose.so
