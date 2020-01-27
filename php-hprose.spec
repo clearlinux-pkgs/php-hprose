@@ -4,7 +4,7 @@
 #
 Name     : php-hprose
 Version  : 1.6.8
-Release  : 1
+Release  : 2
 URL      : https://pecl.php.net//get/hprose-1.6.8.tgz
 Source0  : https://pecl.php.net//get/hprose-1.6.8.tgz
 Summary  : No detailed summary available
