@@ -4,13 +4,15 @@
 #
 Name     : php-hprose
 Version  : 1.8.0
-Release  : 13
+Release  : 14
 URL      : https://pecl.php.net/get/hprose-1.8.0.tgz
 Source0  : https://pecl.php.net/get/hprose-1.8.0.tgz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : MIT
+Requires: php-hprose-lib = %{version}-%{release}
 BuildRequires : buildreq-php
+Patch1: PHP-8.patch
 
 %description
 # Hprose extension for PHP
@@ -20,9 +22,18 @@ BuildRequires : buildreq-php
 [![GitHub release](https://img.shields.io/github/release/hprose/hprose-pecl.svg)](https://github.com/hprose/hprose-pecl/releases)
 [![License](https://img.shields.io/github/license/hprose/hprose-pecl.svg)](http://opensource.org/licenses/MIT)
 
+%package lib
+Summary: lib components for the php-hprose package.
+Group: Libraries
+
+%description lib
+lib components for the php-hprose package.
+
+
 %prep
 %setup -q -n hprose-1.8.0
 cd %{_builddir}/hprose-1.8.0
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -38,3 +49,7 @@ make  %{?_smp_mflags}
 
 %files
 %defattr(-,root,root,-)
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/extensions/no-debug-non-zts-20210902/hprose.so

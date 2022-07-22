@@ -1,0 +1,75 @@
+From 74bf37965deebb03bf46893ec284e6bcf234d575 Mon Sep 17 00:00:00 2001
+From: Yurun <admin@yurunsoft.com>
+Date: Tue, 11 May 2021 11:58:51 +0800
+Subject: [PATCH] Fix PHP 8.0
+
+---
+ hprose_common.c |  8 ++++++++
+ hprose_common.h | 10 ++++++++++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/hprose_common.c b/hprose_common.c
+index a2de5f5..a1c3704 100644
+--- a/hprose_common.c
++++ b/hprose_common.c
+@@ -252,7 +252,9 @@ void __function_invoke_args(zend_fcall_info_cache fcc, zval *obj, zval *return_v
+ #endif
+     fci.param_count = argc;
+     fci.params = params;
++#if PHP_VERSION_ID < 80000
+     fci.no_separation = 1;
++#endif
+ 
+     if (obj != NULL && Z_TYPE_P(obj) == IS_OBJECT) {
+ #if PHP_API_VERSION < 20090626
+@@ -468,7 +470,9 @@ void __function_invoke(zend_fcall_info_cache fcc, zval *obj, zval *return_value,
+ #endif
+     fci.param_count = argc;
+     fci.params = params;
++#if PHP_VERSION_ID < 80000
+     fci.no_separation = 1;
++#endif
+ 
+     if (obj != NULL && Z_TYPE_P(obj) == IS_OBJECT) {
+ #if PHP_API_VERSION < 20090626
+@@ -717,7 +721,9 @@ zend_class_entry *__create_php_object(char *class_name, int32_t len, zval *retur
+         fci.retval_ptr_ptr = &retval_ptr;
+         fci.param_count = argc;
+         fci.params = params;
++#if PHP_VERSION_ID < 80000
+         fci.no_separation = 1;
++#endif
+ 
+         fcc.initialized = 1;
+         fcc.function_handler = constructor;
+@@ -764,7 +770,9 @@ zend_class_entry *__create_php_object(char *class_name, int32_t len, zval *retur
+         fci.retval = &retval;
+         fci.param_count = argc;
+         fci.params = params;
++#if PHP_VERSION_ID < 80000
+         fci.no_separation = 1;
++#endif
+ 
+ #if PHP_VERSION_ID < 70300
+         fcc.initialized = 1;
+diff --git a/hprose_common.h b/hprose_common.h
+index 1b313f5..67dbc87 100644
+--- a/hprose_common.h
++++ b/hprose_common.h
+@@ -37,6 +37,16 @@ BEGIN_EXTERN_C()
+ #include "TSRM.h"
+ #endif
+ 
++#if PHP_VERSION_ID >= 80000
++    #define HAVE_LOCALE_H
++    #define TSRMLS_C
++    #define TSRMLS_CC
++    #define TSRMLS_D
++    #define TSRMLS_DC
++    #define TSRMLS_FETCH()
++    #define TSRMLS_SET_CTX(ctx)
++#endif
++
+ #if PHP_MAJOR_VERSION >= 7 && defined(ZTS) && defined(COMPILE_DL_HPROSE)
+ ZEND_TSRMLS_CACHE_EXTERN();
+ #endif
