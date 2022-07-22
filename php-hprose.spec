@@ -4,13 +4,14 @@
 #
 Name     : php-hprose
 Version  : 1.8.0
-Release  : 14
+Release  : 15
 URL      : https://pecl.php.net/get/hprose-1.8.0.tgz
 Source0  : https://pecl.php.net/get/hprose-1.8.0.tgz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : MIT
 Requires: php-hprose-lib = %{version}-%{release}
+Requires: php-hprose-license = %{version}-%{release}
 BuildRequires : buildreq-php
 Patch1: PHP-8.patch
 
@@ -25,9 +26,18 @@ Patch1: PHP-8.patch
 %package lib
 Summary: lib components for the php-hprose package.
 Group: Libraries
+Requires: php-hprose-license = %{version}-%{release}
 
 %description lib
 lib components for the php-hprose package.
+
+
+%package license
+Summary: license components for the php-hprose package.
+Group: Default
+
+%description license
+license components for the php-hprose package.
 
 
 %prep
@@ -44,6 +54,8 @@ phpize
 make  %{?_smp_mflags}
 
 %install
+mkdir -p %{buildroot}/usr/share/package-licenses/php-hprose
+cp %{_builddir}/hprose-1.8.0/LICENSE.md %{buildroot}/usr/share/package-licenses/php-hprose/22cb455f6bcf1953cc56ca486162963d8a497268
 %make_install
 
 
@@ -53,3 +65,7 @@ make  %{?_smp_mflags}
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/extensions/no-debug-non-zts-20210902/hprose.so
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/php-hprose/22cb455f6bcf1953cc56ca486162963d8a497268
