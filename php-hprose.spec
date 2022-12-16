@@ -4,7 +4,7 @@
 #
 Name     : php-hprose
 Version  : 1.8.0
-Release  : 28
+Release  : 29
 URL      : https://pecl.php.net/get/hprose-1.8.0.tgz
 Source0  : https://pecl.php.net/get/hprose-1.8.0.tgz
 Summary  : No detailed summary available
@@ -55,7 +55,7 @@ make  %{?_smp_mflags}
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/php-hprose
-cp %{_builddir}/hprose-1.8.0/LICENSE.md %{buildroot}/usr/share/package-licenses/php-hprose/22cb455f6bcf1953cc56ca486162963d8a497268
+cp %{_builddir}/hprose-%{version}/LICENSE.md %{buildroot}/usr/share/package-licenses/php-hprose/22cb455f6bcf1953cc56ca486162963d8a497268
 %make_install
 
 
@@ -64,7 +64,7 @@ cp %{_builddir}/hprose-1.8.0/LICENSE.md %{buildroot}/usr/share/package-licenses/
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/extensions/no-debug-non-zts-20210902/hprose.so
+/usr/lib64/extensions/no-debug-non-zts-20220829/hprose.so
 
 %files license
 %defattr(0644,root,root,0755)
